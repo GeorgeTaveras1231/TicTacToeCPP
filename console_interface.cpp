@@ -1,10 +1,4 @@
-//
-//  console_interface.cpp
-//  TicTacToe
-//
-//  Created by George Taveras on 10/26/13.
-//  Copyright (c) 2013 George Taveras. All rights reserved.
-//
+
 #include <iostream>
 #include "game_logic.h"
 #include "console_interface.h"
