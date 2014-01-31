@@ -1,10 +1,3 @@
-//
-//  game_logic.h
-//  TicTacToe
-//
-//  Created by George Taveras on 10/24/13.
-//  Copyright (c) 2013 George Taveras. All rights reserved.
-//
 
 #ifndef TicTacToe_game_logic_h
 #define TicTacToe_game_logic_h
