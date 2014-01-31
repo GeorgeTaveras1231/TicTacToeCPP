@@ -1,4 +1,3 @@
-
 #ifndef TicTacToe_game_logic_h
 #define TicTacToe_game_logic_h
 
@@ -28,7 +27,7 @@ class game_logic
     short int GRID_AREA;
     
     
-    std::string VALID_SYMBOLS;                                     //each character is a legal symbol
+    std::string VALID_SYMBOLS;                                    
 
     std::vector<int> _illegal_moves;
     
@@ -54,10 +53,10 @@ public:
     
     
     
-    bool isBoxLegal(short int);                                         //checks if it is legal to play in a certain box(specified by the index)
+    bool isBoxLegal(short int);                                         
     
-    bool victory();                                                    //checks for victory conditions
-    bool victory(player&);                                             //checks if given player won
+    bool victory();                                                   
+    bool victory(player&);                                          
     
         bool horizontalVictory();
         bool verticalVictory();
