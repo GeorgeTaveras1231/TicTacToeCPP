@@ -1,11 +1,3 @@
-//
-//  game_logic.cpp
-//  TicTacToe
-//
-//  Created by George Taveras on 10/25/13
-//  Copyright (c) 2013 George Taveras. All rights reserved.
-//
-
 
 #include "player.h"
 #include "console_grid.h"
@@ -14,9 +6,9 @@
 
 
 game_logic::game_logic(
-                       short int max_players,                                   //initialize the MAX_PLAYERS
-                       const short int grid_dimenssions,                     //initialize the GRID_DIMENSSIONS
-                       const std::string& symbols                               //initialize LEGAL_SYMBOLS
+                       short int max_players,                                   
+                       const short int grid_dimenssions,                     
+                       const std::string& symbols                               
 )
 {
     MAX_PLAYERS = max_players;
@@ -33,14 +25,14 @@ game_logic::game_logic(
      
      */
     _controllerGrid = new console_grid(GRID_WIDTH,GRID_HEIGHT); //must be deleted
-    //identification number for every box
+    
     int index;
     std::stringstream buttons;
     for(index = 0; index < GRID_AREA; index++)
     {
         buttons<<index;
     }
-    _controllerGrid->writeToGrid(buttons.str());                                      //write the id number to each box, on each box of the controller grid
+    _controllerGrid->writeToGrid(buttons.str());                                      
     /*
      game_grid
      
@@ -54,22 +46,21 @@ game_logic::~game_logic()
 }
 
 void game_logic::newPlayer
-                            (//parameters
+                            (
                              const std::string& name,
                              char symbol
                              )
-                                                            throw(//exception list
+                                                            throw(
                                                                   GameExcept::player_limit,
                                                                   GameExcept::existing_player,
                                                                   GameExcept::invalid_symbol
                                                                   )
 {
     
-    /*exception check exception check exception check exception check exception check exception check exception check exception check*/
     
     std::stringstream errMsg;
     
-    if (TOTAL_PLAYERS == MAX_PLAYERS)                                           //exception condition for player limit...too many players
+    if (TOTAL_PLAYERS == MAX_PLAYERS)                                           
     {
         errMsg<<"too many players.";
         throw GameExcept::player_limit(errMsg.str());
@@ -81,7 +72,7 @@ void game_logic::newPlayer
         if(_players[index]->getName() == name)
         {
             errMsg<<name<<" already exists. Please choose another name.";
-            throw GameExcept::existing_player(errMsg.str());         //exception condition for existing player...player already exists
+            throw GameExcept::existing_player(errMsg.str());         
         }
     }
     for(index = 0 ; index < (int)_players.size(); index++)
@@ -89,7 +80,7 @@ void game_logic::newPlayer
         if(_players[index]->getSymbol() == symbol)
         {
             errMsg<<symbol<<" belongs to "<<_players[index]->getName()<<".";
-            throw GameExcept::invalid_symbol(errMsg.str());         //exception condition for existing player...player already exists
+            throw GameExcept::invalid_symbol(errMsg.str());         
         }
     }
     for(index = 0 ; index < (int)VALID_SYMBOLS.size(); index++)
@@ -100,11 +91,11 @@ void game_logic::newPlayer
         }
         else if((char)VALID_SYMBOLS[index] != symbol && index == (int)VALID_SYMBOLS.size() - 1){
             errMsg << symbol<<" is an invalid symbol.";
-            throw GameExcept::invalid_symbol(errMsg.str());                 //exception condition for invalid symbol
+            throw GameExcept::invalid_symbol(errMsg.str());                
         }
     }
     
-    _players.push_back(new player(this));                                        //add new player to _players vector
+    _players.push_back(new player(this));                                       
     _players[TOTAL_PLAYERS]->setName(name);
     _players[TOTAL_PLAYERS]->setSymbol(symbol);
     
@@ -112,7 +103,7 @@ void game_logic::newPlayer
     
 }
 
-void game_logic::clearPlayers()                                                //delete all player instances created in the _players instance
+void game_logic::clearPlayers()                                                
                             throw(GameExcept::player_limit)
 {
     if(TOTAL_PLAYERS == 0)
@@ -146,7 +137,7 @@ bool game_logic::victory()
     int width = GRID_WIDTH;
     int height = GRID_HEIGHT;
     int area= GRID_AREA;
-    //calculate indexes that must be equal in order909
+    
     int index;
     for(index = 0; index < area; index++)
     {
@@ -154,7 +145,7 @@ bool game_logic::victory()
         {
             //compare horizontally
             int hCheckIndex;                                        //horizontal check index
-            for(hCheckIndex = index; _gameGrid->compareBoxes(hCheckIndex, ++hCheckIndex)&& hCheckIndex-index<width;){
+            for(hCheckIndex = index; _gameGrid->compareBoxes(hCheckIndex, ++hCheckIndex) && hCheckIndex-index<width;){
             
                 if(hCheckIndex-index == width -1)
                 {
@@ -168,7 +159,7 @@ bool game_logic::victory()
         if (index < width)
         {
             int vCheckIndex;                                        //vertical check index
-            for(vCheckIndex = index; _gameGrid->compareBoxes(vCheckIndex, vCheckIndex+width)&& vCheckIndex-index<= width * (height-1);){
+            for(vCheckIndex = index; _gameGrid->compareBoxes(vCheckIndex, vCheckIndex+width) && vCheckIndex-index<= width * (height-1);){
                 vCheckIndex+=width;
                 
                 if(vCheckIndex-index == width * (height-1))
@@ -244,7 +235,7 @@ bool game_logic::victory(player& givenPlayer)
             //compare vertically
             if (index < width)
             {
-                int vCheckIndex;                                        //vertical check index
+                int vCheckIndex;
                 for(vCheckIndex = index; _gameGrid->compareBoxes(vCheckIndex, vCheckIndex+width)&& vCheckIndex-index<=width * (height-1);)
                 {
                     vCheckIndex+=width;
@@ -258,7 +249,7 @@ bool game_logic::victory(player& givenPlayer)
             //compare diagonal
             if (index == 0)
             {
-                int dCheckIndex;                                        //diagonal check index
+                int dCheckIndex;
                 for(dCheckIndex = index; _gameGrid->compareBoxes(dCheckIndex, dCheckIndex+width+1)&& dCheckIndex<=area - 1;)
                 {
                     dCheckIndex+=width+1;
@@ -271,7 +262,7 @@ bool game_logic::victory(player& givenPlayer)
             }
             if (index == width-1)
             {
-                int dCheckIndex;                                        //diagonal check index
+                int dCheckIndex;
                 for(dCheckIndex = index; _gameGrid->compareBoxes(dCheckIndex, dCheckIndex+width-1)&& dCheckIndex<=area - width;)
                 {
                     dCheckIndex+=width-1;
@@ -308,7 +299,7 @@ bool game_logic::gameOver()
     }
     
     
-    for(auto& iter: _players)                                                       //itterate through players and see whether theyve won
+    for(auto& iter: _players)
     {
         if(victory(*iter))
         {
@@ -323,7 +314,6 @@ void game_logic::endGame()
     this->clearPlayers();
     delete _controllerGrid;
     delete _gameGrid;
-    //delete this;
 }
 
 
