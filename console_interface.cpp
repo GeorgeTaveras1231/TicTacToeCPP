@@ -23,7 +23,7 @@ void console_interface::Intro()
     std::cout<<"and you should know them by now"<<std::endl;
              sleep(msgSpeed);
              sleep(msgSpeed);
-    std::cout<<"if you don't, kill yourself :)"<<std::endl
+    std::cout<<""<<std::endl
              <<"\n\n";
              sleep(msgSpeed);
              sleep(msgSpeed);
